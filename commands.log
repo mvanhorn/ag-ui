@@ -1,0 +1,165 @@
+# commands.log — real captured stdout/stderr
+# Date: 2026-11-15 UTC
+# Cwd: /workspace
+# Node: v22.23.4
+# Feature branch: feat/http-agent-idle-timeout
+# Tip: a5e9abddfbd72d241537661abb95e29fb280a18c
+
+$ node -v
+v22.23.4
+
+$ pnpm --filter @ag-ui/client typecheck
+ℹ [ESM] dist/index.mjs         5.84 kB │ gzip: 2.06 kB
+ℹ [ESM] dist/index.mjs.map    12.69 kB │ gzip: 4.10 kB
+ℹ [ESM] dist/index.d.mts.map   0.35 kB │ gzip: 0.21 kB
+ℹ [ESM] dist/index.d.mts       0.61 kB │ gzip: 0.31 kB
+ℹ [ESM] 4 files, total: 19.49 kB
+✔ Build complete in 720ms
+
+> nx run @ag-ui/client:typecheck
+
+> @ag-ui/client@1.0.4 typecheck /workspace/sdks/typescript/packages/client
+> tsc --noEmit
+
+
+
+ NX   Successfully ran target typecheck for project @ag-ui/client and 4 tasks it depends on
+
+
+TYPECHECK_EXIT:0
+exit: 0
+
+$ pnpm --filter @ag-ui/client lint
+
+> @ag-ui/encoder@1.0.4 lint /workspace/sdks/typescript/packages/encoder
+> eslint "src/**/*.ts*"
+
+
+> nx run @ag-ui/client:lint
+
+> @ag-ui/client@1.0.4 lint /workspace/sdks/typescript/packages/client
+> eslint "src/**/*.ts*"
+
+
+
+ NX   Successfully ran target lint for project @ag-ui/client and 3 tasks it depends on
+
+
+LINT_EXIT:0
+exit: 0
+
+$ pnpm --filter @ag-ui/client build
+ℹ [CJS] 2 files, total: 580.73 kB
+ℹ [CJS] dist/index.d.ts.map  12.41 kB │ gzip:  3.10 kB
+ℹ [CJS] dist/index.d.ts      40.46 kB │ gzip: 11.92 kB
+ℹ [CJS] 2 files, total: 52.87 kB
+✔ Build complete in 1650ms
+ℹ [ESM] dist/index.mjs         84.73 kB │ gzip:  22.59 kB
+ℹ [ESM] dist/index.mjs.map    487.48 kB │ gzip: 117.28 kB
+ℹ [ESM] dist/index.d.mts.map   12.41 kB │ gzip:   3.10 kB
+ℹ [ESM] dist/index.d.mts       40.53 kB │ gzip:  11.93 kB
+ℹ [ESM] 4 files, total: 625.15 kB
+✔ Build complete in 1670ms
+
+
+
+ NX   Successfully ran target build for project @ag-ui/client and 4 tasks it depends on
+
+
+BUILD_EXIT:0
+exit: 0
+
+$ pnpm --filter @ag-ui/client test
+ ✓ src/middleware/__tests__/filter-tool-calls.test.ts (2 tests) 6ms
+ ✓ src/legacy/__tests__/convert.malformed-tool-args.test.ts (2 tests) 11ms
+ ✓ src/agent/__tests__/agent-lazy-thread-id.test.ts (6 tests) 5ms
+ ✓ src/middleware/__tests__/middleware-live-events.test.ts (1 test) 3ms
+ ✓ src/middleware/__tests__/middleware.test.ts (1 test) 3ms
+ ✓ src/middleware/__tests__/function-middleware.test.ts (1 test) 3ms
+stderr | src/agent/__tests__/agent-version.test.ts > AbstractAgent maxVersion default > uses the package.json version by default
+[ag-ui] AbstractAgent.maxVersion is deprecated — use maxProtocolVersion. Same value; the new name says whose version it is and that it is a ceiling.
+ ✓ src/agent/__tests__/agent-version.test.ts (1 test) 3ms
+ Test Files  108 passed (108)
+      Tests  1358 passed (1358)
+   Start at  16:43:58
+   Duration  12.63s (transform 2.05s, setup 0ms, import 16.97s, tests 9.98s, environment 10ms)
+
+
+
+ NX   Successfully ran target test for project @ag-ui/client and 5 tasks it depends on
+
+
+TEST_EXIT:0
+exit: 0
+
+$ pnpm exec prettier --check \
+  docs/sdk/js/client/http-agent.mdx \
+  sdks/typescript/packages/client/src/agent/__tests__/agent-clone.test.ts \
+  sdks/typescript/packages/client/src/agent/__tests__/http-idle-timeout.test.ts \
+  sdks/typescript/packages/client/src/agent/http.ts \
+  sdks/typescript/packages/client/src/agent/index.ts \
+  sdks/typescript/packages/client/src/agent/types.ts \
+  sdks/typescript/packages/client/src/run/http-request.ts
+Checking formatting...
+All matched files use Prettier code style!
+exit: 0
+
+$ pnpm exec vitest run src/agent/__tests__/http-idle-timeout.test.ts
+
+ RUN  v4.0.18 /workspace/sdks/typescript/packages/client
+
+ ✓ src/agent/__tests__/http-idle-timeout.test.ts (10 tests) 67ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  16:46:00
+   Duration  728ms (transform 393ms, setup 0ms, import 564ms, tests 67ms, environment 0ms)
+
+exit: 0
+
+$ node /tmp/idle-timeout-demo/run.mjs
+[2026-11-15T16:46:36.426Z] demo server listening on http://127.0.0.1:33517
+[2026-11-15T16:46:36.426Z] === invalid idleTimeoutMs values are rejected at construction ===
+[2026-11-15T16:46:36.426Z] idleTimeoutMs=0 rejected: Invalid idleTimeoutMs 0: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] idleTimeoutMs=-1 rejected: Invalid idleTimeoutMs -1: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] idleTimeoutMs=NaN rejected: Invalid idleTimeoutMs NaN: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] idleTimeoutMs=Infinity rejected: Invalid idleTimeoutMs Infinity: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] === (a) GET /stall with no idleTimeoutMs ===
+[2026-11-15T16:46:36.458Z] (a) event RUN_STARTED
+[2026-11-15T16:46:36.458Z] (a) event TEXT_MESSAGE_START
+[2026-11-15T16:46:36.458Z] (a) event TEXT_MESSAGE_CONTENT delta="partial answer before the stall"
+[2026-11-15T16:46:46.429Z] (a) still waiting after 10002ms (no idleTimeoutMs; run has not settled)
+[2026-11-15T16:46:46.429Z] (a) script aborting after 10s bound — labeled: script abort, not idle timeout
+[2026-11-15T16:46:46.433Z] (a) event RUN_ERROR
+[2026-11-15T16:46:46.434Z] (a) onRunErrorEvent code=abort message=This operation was aborted
+[2026-11-15T16:46:46.434Z] (a) run resolved after script abort; isRunning=false elapsed=10007ms
+[2026-11-15T16:46:46.434Z] === (b) GET /stall with idleTimeoutMs: 2000 ===
+[2026-11-15T16:46:46.442Z] (b) event RUN_STARTED
+[2026-11-15T16:46:46.443Z] (b) event TEXT_MESSAGE_START
+[2026-11-15T16:46:46.443Z] (b) event TEXT_MESSAGE_CONTENT delta="partial answer before the stall"
+[2026-11-15T16:46:48.443Z] (b) onRunFailed name=HttpAgentIdleTimeoutError code=IDLE_TIMEOUT message=HttpAgent idle timeout: no data received for 2000ms
+[2026-11-15T16:46:48.443Z] console.error Agent execution failed: HttpAgentIdleTimeoutError: HttpAgent idle timeout: no data received for 2000ms
+[2026-11-15T16:46:48.443Z] (b) run rejected name=HttpAgentIdleTimeoutError code=IDLE_TIMEOUT idleTimeoutMs=2000 elapsed=2009ms
+[2026-11-15T16:46:48.443Z] (b) message=HttpAgent idle timeout: no data received for 2000ms
+[2026-11-15T16:46:48.443Z] (b) instanceof HttpAgentIdleTimeoutError=true
+[2026-11-15T16:46:48.443Z] (b) events before timeout: RUN_STARTED,TEXT_MESSAGE_START,TEXT_MESSAGE_CONTENT
+[2026-11-15T16:46:48.495Z] === (c) GET /keepalive with idleTimeoutMs: 2000 and 1.5s gaps ===
+[2026-11-15T16:46:48.498Z] (c) event RUN_STARTED
+[2026-11-15T16:46:49.998Z] (c) event TEXT_MESSAGE_START
+[2026-11-15T16:46:51.498Z] (c) event TEXT_MESSAGE_CONTENT delta="kept alive by : ping comments"
+[2026-11-15T16:46:52.999Z] (c) event TEXT_MESSAGE_END
+[2026-11-15T16:46:54.500Z] (c) event RUN_FINISHED
+[2026-11-15T16:46:54.501Z] (c) completed elapsed=6006ms text="kept alive by : ping comments"
+[2026-11-15T16:46:54.501Z] === (d) GET /ok completes; process must not keep a leaked timer ===
+[2026-11-15T16:46:54.505Z] (d) event RUN_STARTED
+[2026-11-15T16:46:54.506Z] (d) event TEXT_MESSAGE_START
+[2026-11-15T16:46:54.506Z] (d) event TEXT_MESSAGE_CONTENT delta="Hello from /ok"
+[2026-11-15T16:46:54.506Z] (d) event TEXT_MESSAGE_END
+[2026-11-15T16:46:54.506Z] (d) event RUN_FINISHED
+[2026-11-15T16:46:54.506Z] (d) completed elapsed=5ms text="Hello from /ok"
+[2026-11-15T16:46:54.506Z] (d) active resources=["TCPServerWrap","TCPSocketWrap","TCPSocketWrap","TCPSocketWrap","Immediate"]
+[2026-11-15T16:46:54.506Z] (d) Timeout handles remaining=0
+[2026-11-15T16:46:54.506Z] (d) no leaked idle timer; process will exit after the server closes
+[2026-11-15T16:46:54.506Z] all demo scenarios finished
+[2026-11-15T16:46:54.507Z] demo server closed
+exit: 0

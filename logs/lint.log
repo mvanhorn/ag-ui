@@ -1,0 +1,38 @@
+=== nx lint ===
+
+ NX   Running target lint for project @ag-ui/client and 3 tasks it depends on:
+
+
+
+> nx run @ag-ui/core:lint
+
+
+> @ag-ui/core@1.0.4 lint /workspace/sdks/typescript/packages/core
+> eslint "src/**/*.ts*"
+
+
+> nx run @ag-ui/proto:lint
+
+
+> @ag-ui/proto@1.0.4 lint /workspace/sdks/typescript/packages/proto
+> eslint "src/**/*.ts*"
+
+
+> nx run @ag-ui/encoder:lint
+
+
+> @ag-ui/encoder@1.0.4 lint /workspace/sdks/typescript/packages/encoder
+> eslint "src/**/*.ts*"
+
+
+> nx run @ag-ui/client:lint
+
+> @ag-ui/client@1.0.4 lint /workspace/sdks/typescript/packages/client
+> eslint "src/**/*.ts*"
+
+
+
+ NX   Successfully ran target lint for project @ag-ui/client and 3 tasks it depends on
+
+
+LINT_EXIT:0

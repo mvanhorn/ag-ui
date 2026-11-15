@@ -1,0 +1,44 @@
+[2026-11-15T16:46:36.426Z] demo server listening on http://127.0.0.1:33517
+[2026-11-15T16:46:36.426Z] === invalid idleTimeoutMs values are rejected at construction ===
+[2026-11-15T16:46:36.426Z] idleTimeoutMs=0 rejected: Invalid idleTimeoutMs 0: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] idleTimeoutMs=-1 rejected: Invalid idleTimeoutMs -1: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] idleTimeoutMs=NaN rejected: Invalid idleTimeoutMs NaN: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] idleTimeoutMs=Infinity rejected: Invalid idleTimeoutMs Infinity: expected a positive finite number.
+[2026-11-15T16:46:36.427Z] === (a) GET /stall with no idleTimeoutMs ===
+[2026-11-15T16:46:36.458Z] (a) event RUN_STARTED
+[2026-11-15T16:46:36.458Z] (a) event TEXT_MESSAGE_START
+[2026-11-15T16:46:36.458Z] (a) event TEXT_MESSAGE_CONTENT delta="partial answer before the stall"
+[2026-11-15T16:46:46.429Z] (a) still waiting after 10002ms (no idleTimeoutMs; run has not settled)
+[2026-11-15T16:46:46.429Z] (a) script aborting after 10s bound — labeled: script abort, not idle timeout
+[2026-11-15T16:46:46.433Z] (a) event RUN_ERROR
+[2026-11-15T16:46:46.434Z] (a) onRunErrorEvent code=abort message=This operation was aborted
+[2026-11-15T16:46:46.434Z] (a) run resolved after script abort; isRunning=false elapsed=10007ms
+[2026-11-15T16:46:46.434Z] === (b) GET /stall with idleTimeoutMs: 2000 ===
+[2026-11-15T16:46:46.442Z] (b) event RUN_STARTED
+[2026-11-15T16:46:46.443Z] (b) event TEXT_MESSAGE_START
+[2026-11-15T16:46:46.443Z] (b) event TEXT_MESSAGE_CONTENT delta="partial answer before the stall"
+[2026-11-15T16:46:48.443Z] (b) onRunFailed name=HttpAgentIdleTimeoutError code=IDLE_TIMEOUT message=HttpAgent idle timeout: no data received for 2000ms
+[2026-11-15T16:46:48.443Z] console.error Agent execution failed: HttpAgentIdleTimeoutError: HttpAgent idle timeout: no data received for 2000ms
+[2026-11-15T16:46:48.443Z] (b) run rejected name=HttpAgentIdleTimeoutError code=IDLE_TIMEOUT idleTimeoutMs=2000 elapsed=2009ms
+[2026-11-15T16:46:48.443Z] (b) message=HttpAgent idle timeout: no data received for 2000ms
+[2026-11-15T16:46:48.443Z] (b) instanceof HttpAgentIdleTimeoutError=true
+[2026-11-15T16:46:48.443Z] (b) events before timeout: RUN_STARTED,TEXT_MESSAGE_START,TEXT_MESSAGE_CONTENT
+[2026-11-15T16:46:48.495Z] === (c) GET /keepalive with idleTimeoutMs: 2000 and 1.5s gaps ===
+[2026-11-15T16:46:48.498Z] (c) event RUN_STARTED
+[2026-11-15T16:46:49.998Z] (c) event TEXT_MESSAGE_START
+[2026-11-15T16:46:51.498Z] (c) event TEXT_MESSAGE_CONTENT delta="kept alive by : ping comments"
+[2026-11-15T16:46:52.999Z] (c) event TEXT_MESSAGE_END
+[2026-11-15T16:46:54.500Z] (c) event RUN_FINISHED
+[2026-11-15T16:46:54.501Z] (c) completed elapsed=6006ms text="kept alive by : ping comments"
+[2026-11-15T16:46:54.501Z] === (d) GET /ok completes; process must not keep a leaked timer ===
+[2026-11-15T16:46:54.505Z] (d) event RUN_STARTED
+[2026-11-15T16:46:54.506Z] (d) event TEXT_MESSAGE_START
+[2026-11-15T16:46:54.506Z] (d) event TEXT_MESSAGE_CONTENT delta="Hello from /ok"
+[2026-11-15T16:46:54.506Z] (d) event TEXT_MESSAGE_END
+[2026-11-15T16:46:54.506Z] (d) event RUN_FINISHED
+[2026-11-15T16:46:54.506Z] (d) completed elapsed=5ms text="Hello from /ok"
+[2026-11-15T16:46:54.506Z] (d) active resources=["TCPServerWrap","TCPSocketWrap","TCPSocketWrap","TCPSocketWrap","Immediate"]
+[2026-11-15T16:46:54.506Z] (d) Timeout handles remaining=0
+[2026-11-15T16:46:54.506Z] (d) no leaked idle timer; process will exit after the server closes
+[2026-11-15T16:46:54.506Z] all demo scenarios finished
+[2026-11-15T16:46:54.507Z] demo server closed

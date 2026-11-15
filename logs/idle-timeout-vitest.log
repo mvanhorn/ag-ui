@@ -1,0 +1,10 @@
+ RUN  v4.0.18 /workspace/sdks/typescript/packages/client
+
+ ✓ src/agent/__tests__/http-idle-timeout.test.ts (10 tests) 67ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  16:46:00
+   Duration  728ms (transform 393ms, setup 0ms, import 564ms, tests 67ms, environment 0ms)
+
+IDLE_TEST_EXIT:0
